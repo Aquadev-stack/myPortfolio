@@ -273,46 +273,49 @@
     <main class="pt-20 md:pt-28 flex flex-col justify-center items-center relative z-10 w-full">
         
         <!-- HERO SECTION -->
-        <section id="home" class="relative w-full flex justify-center items-center py-10 md:py-20 overflow-hidden">
-            <!-- Outer Circle -->
-            <div class="relative w-[350px] h-[350px] sm:w-[500px] sm:h-[500px] md:w-[700px] md:h-[700px] lg:w-[900px] lg:h-[900px] xl:w-[1100px] xl:h-[1100px] rounded-full bg-gradient-to-b from-emerald-500/[0.2] to-slate-950/[0.05] border border-emerald-400/[0.5] flex justify-center items-center">
-                <div class="grain absolute inset-0 pointer-events-none rounded-full"></div>
-                
-                <!-- Floating icons -->
-                <div class="absolute inset-0 pointer-events-none hidden lg:block">
-                    <div class="floating-icon" style="--orbit-duration: 15s; --orbit-radius: 400px; top: 50%; left: 50%;">
-                        <div class="floating-icon-inner text-3xl">📱</div>
-                    </div>
-                    <div class="floating-icon" style="--orbit-duration: 18s; --orbit-radius: 450px; top: 50%; left: 50%; animation-delay: -9s;">
-                        <div class="floating-icon-inner text-3xl">💻</div>
-                    </div>
-                </div>
+<section id="home" class="relative w-full flex justify-center items-center py-10 md:py-20 overflow-hidden">
+    <!-- Outer Circle -->
+    <div class="relative overflow-hidden bg-gradient-to-b from-emerald-500/[0.2] to-slate-950/[0.05] min-w-[1000px] min-h-[1000px] md:min-w-[1300px] md:min-h-[1300px] rounded-full border border-emerald-400/[0.5] flex justify-center items-center flex-col">
+        <div class="grain absolute inset-0 pointer-events-none"></div>
         
-                <!-- Middle Circle -->
-                <div class="relative w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] md:w-[550px] md:h-[550px] lg:w-[700px] lg:h-[700px] xl:w-[850px] xl:h-[850px] rounded-full bg-gradient-to-b from-emerald-500/[0.3] to-slate-950/[0.1] border border-emerald-400/[0.7] flex justify-center items-center">
-                    <div class="grain absolute inset-0 pointer-events-none rounded-full"></div>
-                    
-                    <!-- Inner Circle -->
-                    <div class="relative w-[220px] h-[220px] sm:w-[320px] sm:h-[320px] md:w-[450px] md:h-[450px] lg:w-[580px] lg:h-[580px] xl:w-[700px] xl:h-[700px] rounded-full bg-gradient-to-b from-emerald-500/[0.3] to-slate-950/[0.1] border border-emerald-500/[0.7] flex justify-center items-center px-4">
-                        <div class="grain absolute inset-0 pointer-events-none rounded-full"></div>
+        <!-- Floating icons around hero -->
+        <div class="absolute inset-0 pointer-events-none hidden lg:block">
+            <div class="floating-icon" style="--orbit-duration: 15s; --orbit-radius: 550px; top: 50%; left: 50%;">
+                <div class="floating-icon-inner text-4xl">📱</div>
+            </div>
+            <div class="floating-icon" style="--orbit-duration: 18s; --orbit-radius: 600px; top: 50%; left: 50%; animation-delay: -9s;">
+                <div class="floating-icon-inner text-4xl">💻</div>
+            </div>
+            <div class="floating-icon" style="--orbit-duration: 20s; --orbit-radius: 650px; top: 50%; left: 50%; animation-delay: -5s;">
+                <div class="floating-icon-inner text-4xl">⚛️</div>
+            </div>
+        </div>
 
-                        <div class="text-white text-center w-full max-w-[280px] sm:max-w-[350px] md:max-w-[450px]">
-                            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl chillax leading-[1.3] md:leading-[1.5]">
-                                HI, I'M SAMUEL<br class="sm:hidden"> (AQUADEV)
-                            </h1>
-                            <p class="py-3 md:py-5 outfit-font text-[12px] sm:text-[14px] md:text-[16px] text-slate-200">
-                                A passionate Fullstack Developer and Tech Enthusiast focused on crafting accessible, high-performance, and user-centric interfaces. 
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <!-- HERO IMAGE -->
-                    <div class="hero-image-container absolute w-[80px] h-[80px] sm:w-[120px] sm:h-[120px] md:w-[150px] md:h-[150px] border-4 border-emerald-600 rounded-full z-30 bg-transparent" style="top: 2%;">
-                        <img src="./src/img/image.png" alt="my image" class="w-full h-full rounded-full object-cover">
-                    </div>
+        <!-- Big Circle (Middle Layer) -->
+        <div class="relative overflow-hidden bg-gradient-to-b from-emerald-500/[0.3] to-slate-950/[0.1] min-w-[800px] min-h-[800px] md:min-w-[1000px] md:min-h-[1000px] rounded-full border border-emerald-400/[0.7] flex justify-center items-center flex-col">
+            <div class="grain absolute inset-0 pointer-events-none"></div>
+            
+            <!-- Inner circle background -->
+            <div class="relative flex justify-center items-center overflow-hidden bg-gradient-to-b from-emerald-500/[0.3] to-slate-950/[0.1] min-w-[650px] min-h-[650px] md:min-w-[800px] md:min-h-[800px] rounded-full border border-emerald-500/[0.7]">
+                <div class="grain absolute inset-0 pointer-events-none"></div>
+
+                <div class="text-white text-center w-[350px] md:w-[500px]">
+                    <h1 class="text-4xl md:text-6xl chillax leading-[1.5]">
+                        HI, I'M SAMUEL (AQUADEV)
+                    </h1>
+                    <p class="py-5 outfit-font text-[16px]">
+                        A passionate Fullstack Developer and Tech Enthusiast focused on crafting accessible, high-performance, and user-centric interfaces. 
+                    </p>
                 </div>
             </div>
-        </section>
+            
+            <!-- HERO IMAGE - positioned absolutely relative to middle layer -->
+            <div class="hero-image-container absolute w-[150px] h-[150px] border-4 border-emerald-600 rounded-full z-30 bg-transparent" style="top: 5%;">
+                <img src="./src/img/image.png" alt="my image" class="w-full h-full rounded-full object-cover">
+            </div>
+        </div>
+    </div>
+</section>
 
         <!-- ABOUT SECTION -->
         <section id="about" class="w-full px-4 py-20 bg-gradient-to-t from-emerald-900/50 to-transparent relative">
