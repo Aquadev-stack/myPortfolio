@@ -3,10 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!doctype html>
-<html lang="en">
-<head>
-  <!-- Basic Meta -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inioluwa Samuel | AquaDev - Full Stack Developer</title>
@@ -44,15 +40,12 @@
   <meta name="theme-color" content="#0f172a">
   <meta name="msapplication-TileColor" content="#0f172a">
   
-  <!-- Fonts & CSS -->
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <link href="https://api.fontshare.com/v2/css?f[]=chillax@600,1&display=swap" rel="stylesheet">
-  
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-    /* ... your existing styles ... */
-  </style>
-</head>
+    <!-- This registers the service worker for offline support -->
+    <script>
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link href="https://api.fontshare.com/v2/css?f[]=chillax@600,1&display=swap" rel="stylesheet">
   <style>
