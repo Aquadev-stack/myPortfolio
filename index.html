@@ -1,0 +1,819 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://api.fontshare.com/v2/css?f[]=chillax@600,1&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+    * {
+        scroll-behavior: smooth;
+    }
+
+    .grain {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        opacity: 0.15;
+    }
+
+    .chillax {
+        font-family: 'Chillax', sans-serif;
+        font-weight: 600;
+        font-style: normal;
+    }
+
+    .outfit-font {
+        font-family: "Outfit", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 600;
+        font-style: normal;
+    }
+
+    @keyframes slow-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-25px); }
+    }
+
+    @keyframes pulse-border {
+        0%, 100% {
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            border-color: rgba(16, 185, 129, 0.8);
+        }
+        50% {
+            box-shadow: 0 0 20px 10px rgba(16, 185, 129, 0.3);
+            border-color: rgba(16, 185, 129, 1);
+        }
+    }
+
+    .hero-image-container {
+        animation: slow-bounce 3s ease-in-out infinite, pulse-border 2s ease-in-out infinite;
+    }
+
+    .hero-image-container::after {
+        content: '';
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 20px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
+        filter: blur(8px);
+        animation: shadow-scale 3s ease-in-out infinite;
+        z-index: -1;
+    }
+
+    @keyframes shadow-scale {
+        0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.3; }
+        50% { transform: translateX(-50%) scale(0.6); opacity: 0.1; }
+    }
+
+    .code-container {
+        animation: subtle-glow 4s ease-in-out infinite;
+    }
+    
+    @keyframes subtle-glow {
+        0%, 100% { box-shadow: 0 0 40px rgba(16, 185, 129, 0.1); }
+        50% { box-shadow: 0 0 60px rgba(16, 185, 129, 0.2); }
+    }
+
+    .stars-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+    }
+
+    .star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle var(--duration) ease-in-out infinite;
+        opacity: var(--opacity);
+    }
+
+    @keyframes twinkle {
+        0%, 100% { opacity: var(--opacity); transform: scale(1); }
+        50% { opacity: 0.2; transform: scale(0.5); }
+    }
+
+    .floating-icon {
+        position: absolute;
+        font-size: 1.5rem;
+        opacity: 0.6;
+        animation: float-around var(--orbit-duration) linear infinite;
+        filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.5));
+    }
+
+    @keyframes float-around {
+        0% { transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg); }
+        100% { transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg); }
+    }
+
+    .floating-icon-inner {
+        animation: counter-rotate var(--orbit-duration) linear infinite;
+    }
+
+    @keyframes counter-rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(-360deg); }
+    }
+
+    .doodle {
+        position: absolute;
+        opacity: 0.4;
+        animation: drift var(--drift-duration) ease-in-out infinite;
+    }
+
+    @keyframes drift {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(20px, -30px) rotate(5deg); }
+        50% { transform: translate(-10px, -50px) rotate(-5deg); }
+        75% { transform: translate(-30px, -20px) rotate(3deg); }
+    }
+
+    .code-bracket {
+        position: absolute;
+        font-family: 'Fira Code', monospace;
+        font-size: 2rem;
+        color: rgba(16, 185, 129, 0.3);
+        font-weight: 100;
+        animation: pulse-fade 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-fade {
+        0%, 100% { opacity: 0.2; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(1.1); }
+    }
+
+    .terminal-cursor {
+        position: absolute;
+        width: 12px;
+        height: 20px;
+        background: rgba(16, 185, 129, 0.6);
+        animation: blink-cursor 1s step-end infinite;
+    }
+
+    @keyframes blink-cursor {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+
+    /* Line clamp utility */
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Hide scrollbar but allow scroll */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #334155;
+        border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #475569;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 min-h-full flex flex-col relative overflow-x-hidden">
+    
+    <!-- STARRY BACKGROUND -->
+    <div class="stars-container" id="starsContainer">
+        <!-- Floating tech icons -->
+        <div class="floating-icon hidden md:block" style="--orbit-duration: 20s; --orbit-radius: 200px; top: 50%; left: 50%;">
+            <div class="floating-icon-inner text-orange-500">⚡</div>
+        </div>
+        <div class="floating-icon hidden md:block" style="--orbit-duration: 25s; --orbit-radius: 250px; top: 50%; left: 50%; animation-delay: -5s;">
+            <div class="floating-icon-inner text-blue-400">{ }</div>
+        </div>
+        <div class="floating-icon hidden md:block" style="--orbit-duration: 30s; --orbit-radius: 300px; top: 50%; left: 50%; animation-delay: -10s;">
+            <div class="floating-icon-inner text-yellow-400">&lt;/&gt;</div>
+        </div>
+        
+        <!-- Code doodles - hidden on small mobile -->
+        <div class="doodle code-bracket hidden sm:block" style="top: 15%; left: 10%; --drift-duration: 15s;">{</div>
+        <div class="doodle code-bracket hidden sm:block" style="top: 20%; right: 15%; --drift-duration: 18s; animation-delay: -3s;">}</div>
+        <div class="doodle code-bracket hidden sm:block" style="top: 60%; left: 5%; --drift-duration: 20s; animation-delay: -7s;">[</div>
+        <div class="doodle code-bracket hidden sm:block" style="top: 70%; right: 8%; --drift-duration: 16s; animation-delay: -12s;">]</div>
+        
+        <!-- Terminal cursors -->
+        <div class="terminal-cursor hidden md:block" style="top: 25%; left: 15%;"></div>
+        <div class="terminal-cursor hidden md:block" style="top: 75%; right: 20%; animation-delay: -0.5s;"></div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="flex justify-center items-center w-[90%] md:w-[60%] lg:w-[40%] h-[50px] mx-auto fixed top-0 left-0 right-0 overflow-hidden rounded-full bg-gradient-to-r from-white/[0.4] to-white/[0.1] backdrop-blur-md p-2.5 mt-5 border border-white/[0.6] z-50">
+        <div class="grain absolute inset-0 pointer-events-none"></div>
+        <ul class="flex gap-3 md:gap-6 overflow-x-auto no-scrollbar">
+            <li><a class="outfit-font text-white hover:text-emerald-400 duration-300 text-[13px] md:text-[16px] whitespace-nowrap" href="#home">Home</a></li>
+            <li><a class="outfit-font text-white hover:text-emerald-400 duration-300 text-[13px] md:text-[16px] whitespace-nowrap" href="#about">About</a></li>
+            <li><a class="outfit-font text-white hover:text-emerald-400 duration-300 text-[13px] md:text-[16px] whitespace-nowrap" href="#skill">Skills</a></li>
+            <li><a class="outfit-font text-white hover:text-emerald-400 duration-300 text-[13px] md:text-[16px] whitespace-nowrap" href="#project">Projects</a></li>
+            <li><a class="outfit-font text-white hover:text-emerald-400 duration-300 text-[13px] md:text-[16px] whitespace-nowrap" href="#contact">Contact</a></li>
+        </ul>
+    </header>
+
+    <main class="pt-20 md:pt-28 flex flex-col justify-center items-center relative z-10 w-full">
+        
+        <!-- HERO SECTION -->
+        <section id="home" class="relative w-full flex justify-center items-center py-10 md:py-20 overflow-hidden">
+            <!-- Outer Circle -->
+            <div class="relative w-[350px] h-[350px] sm:w-[500px] sm:h-[500px] md:w-[700px] md:h-[700px] lg:w-[900px] lg:h-[900px] xl:w-[1100px] xl:h-[1100px] rounded-full bg-gradient-to-b from-emerald-500/[0.2] to-slate-950/[0.05] border border-emerald-400/[0.5] flex justify-center items-center">
+                <div class="grain absolute inset-0 pointer-events-none rounded-full"></div>
+                
+                <!-- Floating icons -->
+                <div class="absolute inset-0 pointer-events-none hidden lg:block">
+                    <div class="floating-icon" style="--orbit-duration: 15s; --orbit-radius: 400px; top: 50%; left: 50%;">
+                        <div class="floating-icon-inner text-3xl">📱</div>
+                    </div>
+                    <div class="floating-icon" style="--orbit-duration: 18s; --orbit-radius: 450px; top: 50%; left: 50%; animation-delay: -9s;">
+                        <div class="floating-icon-inner text-3xl">💻</div>
+                    </div>
+                </div>
+        
+                <!-- Middle Circle -->
+                <div class="relative w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] md:w-[550px] md:h-[550px] lg:w-[700px] lg:h-[700px] xl:w-[850px] xl:h-[850px] rounded-full bg-gradient-to-b from-emerald-500/[0.3] to-slate-950/[0.1] border border-emerald-400/[0.7] flex justify-center items-center">
+                    <div class="grain absolute inset-0 pointer-events-none rounded-full"></div>
+                    
+                    <!-- Inner Circle -->
+                    <div class="relative w-[220px] h-[220px] sm:w-[320px] sm:h-[320px] md:w-[450px] md:h-[450px] lg:w-[580px] lg:h-[580px] xl:w-[700px] xl:h-[700px] rounded-full bg-gradient-to-b from-emerald-500/[0.3] to-slate-950/[0.1] border border-emerald-500/[0.7] flex justify-center items-center px-4">
+                        <div class="grain absolute inset-0 pointer-events-none rounded-full"></div>
+
+                        <div class="text-white text-center w-full max-w-[280px] sm:max-w-[350px] md:max-w-[450px]">
+                            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl chillax leading-[1.3] md:leading-[1.5]">
+                                HI, I'M SAMUEL<br class="sm:hidden"> (AQUADEV)
+                            </h1>
+                            <p class="py-3 md:py-5 outfit-font text-[12px] sm:text-[14px] md:text-[16px] text-slate-200">
+                                A passionate Fullstack Developer and Tech Enthusiast focused on crafting accessible, high-performance, and user-centric interfaces. 
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- HERO IMAGE -->
+                    <div class="hero-image-container absolute w-[80px] h-[80px] sm:w-[120px] sm:h-[120px] md:w-[150px] md:h-[150px] border-4 border-emerald-600 rounded-full z-30 bg-transparent" style="top: 2%;">
+                        <img src="./src/img/image.png" alt="my image" class="w-full h-full rounded-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="w-full px-4 py-20 bg-gradient-to-t from-emerald-900/50 to-transparent relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-2xl md:text-3xl outfit-font text-transparent bg-gradient-to-r from-emerald-200 to-sky-400 bg-clip-text p-5">About Me</h2>
+                    <h1 class="chillax text-3xl md:text-4xl text-white p-6">
+                        Discover My Passion And <br class="hidden sm:block"> Purpose
+                    </h1>
+                </div>
+                
+                <!-- Code Block -->
+                <div class="code-container font-mono text-xs sm:text-sm md:text-base p-4 sm:p-6 rounded-2xl bg-slate-950/90 border border-emerald-500/30 backdrop-blur-md max-w-lg mx-auto shadow-[0_0_40px_rgba(16,185,129,0.1)] relative overflow-hidden mb-12">
+                    <div class="absolute -top-20 -right-20 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl"></div>
+                    
+                    <div class="flex gap-2 mb-4 relative z-10">
+                        <span class="w-3 h-3 rounded-full bg-red-500/80 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500/80 shadow-[0_0_10px_rgba(234,179,8,0.5)]"></span>
+                        <span class="w-3 h-3 rounded-full bg-emerald-500/80 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span>
+                    </div>
+                    
+                    <div class="relative z-10 space-y-1 leading-relaxed overflow-x-auto">
+                        <div><span class="text-purple-400">const</span> <span class="text-blue-400">developer</span> <span class="text-slate-300">=</span> <span class="text-yellow-300">{</span></div>
+                        <div class="pl-4"><span class="text-sky-300">name</span><span class="text-slate-300">:</span> <span class="text-green-400">"Samuel"</span><span class="text-slate-300">,</span></div>
+                        <div class="pl-4"><span class="text-sky-300">role</span><span class="text-slate-300">:</span> <span class="text-green-400">"Full Stack Developer"</span><span class="text-slate-300">,</span></div>
+                        <div class="pl-4"><span class="text-sky-300">skills</span><span class="text-slate-300">:</span> <span class="text-yellow-300">[</span></div>
+                        <div class="pl-8 flex flex-wrap gap-x-1">
+                            <span class="text-green-400">"HTML"</span><span class="text-slate-300">,</span>
+                            <span class="text-green-400">"CSS"</span><span class="text-slate-300">,</span>
+                            <span class="text-green-400">"JavaScript"</span><span class="text-slate-300">,</span>
+                        </div>
+                        <div class="pl-8 flex flex-wrap gap-x-1">
+                            <span class="text-green-400">"React"</span><span class="text-slate-300">,</span>
+                            <span class="text-green-400">"Node.js"</span><span class="text-slate-300">,</span>
+                            <span class="text-green-400">"TailwindCSS"</span><span class="text-slate-300">,</span>
+                            <span class="text-green-400">"Golang"</span>
+                        </div>
+                        <div class="pl-4"><span class="text-yellow-300">]</span><span class="text-slate-300">,</span></div>
+                        <div class="pl-4"><span class="text-sky-300">status</span><span class="text-slate-300">:</span> <span class="text-green-400">"Ready to build"</span><span class="text-slate-300">,</span></div>
+                        <div class="pl-4"><span class="text-sky-300">brief-about</span><span class="text-slate-300">:</span> <span class="text-green-400">"Explore my journey..."</span></div>
+                        <div><span class="text-yellow-300">}</span><span class="text-slate-300">;</span></div>
+                    </div>
+                    
+                    <span class="absolute bottom-4 right-4 text-emerald-400 animate-pulse">|</span>
+                </div>
+
+                <!-- About Cards -->
+                <div class="flex flex-col lg:flex-row justify-center items-stretch gap-6">
+                    <!-- Card 1 -->
+                    <div class="relative w-full lg:max-w-[420px] bg-gradient-to-r from-slate-600/[0.2] hover:from-slate-500/[0.3] to-white/[0.1] hover:-translate-y-2 rounded-[32px] overflow-hidden border border-slate-700/50 transition-all duration-500">
+                        <div class="grain absolute inset-0 pointer-events-none"></div>
+                        <div class="relative z-10 p-6 md:p-8 h-full flex flex-col">
+                            <div class="mb-6">
+                                <p class="text-white chillax text-lg md:text-[20px] font-bold tracking-[0.15em] uppercase mb-3">Who I Am</p>
+                            </div>
+                            <p class="text-slate-300 outfit-font text-[13px] md:text-[14px] flex-grow leading-relaxed">
+                                Omolona Inioluwa Samuel also known as AquaDev, is a passionate Full-Stack Developer, Tech Enthusiast and Tech Creator from Nigeria. With expertise in HTML, CSS, JavaScript, React, TailwindCSS, and back-end tools like Node.js, Golang and databases. Samuel is the Founder & CEO of Lucidar Community, helping reduce scam through trading and exchange of money in the gaming, freelancing and tech community.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="flex flex-col gap-6 w-full lg:max-w-[420px]">
+                        <!-- Card 2 -->
+                        <div class="relative w-full bg-gradient-to-r from-slate-600/[0.2] hover:from-slate-500/[0.3] to-white/[0.1] hover:-translate-y-2 rounded-[32px] overflow-hidden border border-slate-700/50 transition-all duration-500">
+                            <div class="grain absolute inset-0 pointer-events-none"></div>
+                            <div class="relative z-10 p-6 md:p-8">
+                                <div class="mb-6">
+                                    <p class="text-white chillax text-lg md:text-[20px] font-bold tracking-[0.15em] uppercase mb-3">My Journey In Tech</p>
+                                </div>
+                                <p class="text-slate-300 outfit-font text-[13px] md:text-[14px] leading-relaxed">
+                                    My journey in Tech has been driven by curiosity and a desire to solve real-world problems. I've worked on various projects ranging from e-commerce platforms to custom CSS framework (unreleased), always focusing on delivering quality solutions.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="relative w-full bg-gradient-to-r from-slate-600/[0.2] hover:from-slate-500/[0.3] to-white/[0.1] hover:-translate-y-2 rounded-[32px] overflow-hidden border border-slate-700/50 transition-all duration-500">
+                            <div class="grain absolute inset-0 pointer-events-none"></div>
+                            <div class="relative z-10 p-6 md:p-8">
+                                <div class="mb-6">
+                                    <p class="text-white chillax text-lg md:text-[20px] font-bold tracking-[0.15em] uppercase mb-3">What I Do When I Don't Code</p>
+                                </div>
+                                <p class="text-slate-300 outfit-font text-[13px] md:text-[14px] leading-relaxed">
+                                   When I'm not coding, I enjoy exploring new technologies, contributing to open-source projects, and sharing knowledge with the developer community. I believe in continuous learning and staying updated with the latest industry trends.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MY READS SECTION -->
+                <div class="mt-20">
+                    <div class="relative bg-slate-800/50 backdrop-blur-sm rounded-3xl p-6 md:p-12 border border-slate-700/50 overflow-hidden">
+                        <div class="grain absolute inset-0 pointer-events-none"></div>
+                        <div class="absolute -top-20 -right-20 w-60 h-60 bg-emerald-500/10 rounded-full blur-3xl"></div>
+                        
+                        <!-- Header -->
+                        <div class="relative z-10 mb-10 text-center md:text-left">
+                            <div class="flex flex-col md:flex-row items-center gap-3 mb-3">
+                                <svg class="w-6 h-6 text-emerald-400" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                                </svg>
+                                <h2 class="text-2xl md:text-4xl chillax text-white font-semibold">My Reads</h2>
+                            </div>
+                            <p class="text-slate-400 outfit-font text-base md:text-lg">
+                                Explore the books shaping my perspectives.
+                            </p>
+                        </div>
+
+                        <!-- Books Grid -->
+                        <div class="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+                            
+                            <!-- Book 1 -->
+                            <div class="group relative">
+                                <div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl transform transition-all duration-500 group-hover:-translate-y-3 group-hover:scale-105">
+                                    <img src="./src/img/Atomic_habit.jpg" alt="Atomic Habits" class="w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                        <p class="text-white text-sm outfit-font">James Clear</p>
+                                    </div>
+                                </div>
+                                <div class="mt-4 text-center">
+                                    <h3 class="text-white outfit-font text-sm font-medium line-clamp-2">Atomic Habits</h3>
+                                    <p class="text-slate-500 text-xs mt-1">Self-Improvement</p>
+                                </div>
+                            </div>
+
+                            <!-- Book 2 -->
+                            <div class="group relative">
+                                <div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl transform transition-all duration-500 group-hover:-translate-y-3 group-hover:scale-105">
+                                    <img src="./src/img/48_laws_of_power.jpg" alt="48 Laws of Power" class="w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                        <p class="text-white text-sm outfit-font">Robert Greene</p>
+                                    </div>
+                                </div>
+                                <div class="mt-4 text-center">
+                                    <h3 class="text-white outfit-font text-sm font-medium line-clamp-2">The 48 Laws of Power</h3>
+                                    <p class="text-slate-500 text-xs mt-1">Strategy</p>
+                                </div>
+                            </div>
+
+                            <!-- Book 3 -->
+                            <div class="group relative">
+                                <div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl transform transition-all duration-500 group-hover:-translate-y-3 group-hover:scale-105">
+                                    <img src="./src/img/Art_of_war.jpg" alt="Art of War" class="w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                        <p class="text-white text-sm outfit-font">Sun Tzu</p>
+                                    </div>
+                                </div>
+                                <div class="mt-4 text-center">
+                                    <h3 class="text-white outfit-font text-sm font-medium line-clamp-2">The Art of War</h3>
+                                    <p class="text-slate-500 text-xs mt-1">Philosophy</p>
+                                </div>
+                            </div>
+
+                            <!-- Book 4 -->
+                            <div class="group relative">
+                                <div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl transform transition-all duration-500 group-hover:-translate-y-3 group-hover:scale-105">
+                                    <img src="./src/img/A_place_called_tomorrow.png" alt="Place Called Tomorrow" class="w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                        <p class="text-white text-sm outfit-font">Habu Dawaki</p>
+                                    </div>
+                                </div>
+                                <div class="mt-4 text-center">
+                                    <h3 class="text-white outfit-font text-sm font-medium line-clamp-2">There is a Place Called Tomorrow</h3>
+                                    <p class="text-slate-500 text-xs mt-1">Motivation</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="skill" class="w-full py-20 px-4 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-2xl md:text-3xl outfit-font text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text mb-4">Skills & Expertise</h2>
+                    <p class="text-slate-400 outfit-font text-base md:text-lg">Technologies I work with</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <!-- Frontend -->
+                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 hover:border-emerald-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)]">
+                        <div class="grain absolute inset-0 pointer-events-none"></div>
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-emerald-500/30">
+                            <svg class="w-7 h-7 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-white chillax text-xl font-semibold mb-1">Frontend</h3>
+                        <h4 class="text-emerald-400 outfit-font text-sm font-medium mb-4">Development</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>HTML5 & CSS3</li>
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>JavaScript (ES6+)</li>
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>React.js</li>
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>Tailwind CSS</li>
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>Responsive Design</li>
+                        </ul>
+                    </div>
+
+                    <!-- Backend -->
+                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 hover:border-blue-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)]">
+                        <div class="grain absolute inset-0 pointer-events-none"></div>
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-blue-500/30">
+                            <svg class="w-7 h-7 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-white chillax text-xl font-semibold mb-1">Backend</h3>
+                        <h4 class="text-blue-400 outfit-font text-sm font-medium mb-4">Development</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>Node.js & Express</li>
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>Golang x Fiber</li>
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>RESTful APIs</li>
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>Authentication & JWT</li>
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>Server Architecture</li>
+                        </ul>
+                    </div>
+
+                    <!-- Database -->
+                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 hover:border-purple-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(168,85,247,0.15)]">
+                        <div class="grain absolute inset-0 pointer-events-none"></div>
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-purple-500/30">
+                            <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-white chillax text-xl font-semibold mb-1">Database</h3>
+                        <h4 class="text-purple-400 outfit-font text-sm font-medium mb-4">& Tools</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span>MongoDB</li>
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span>MySQL / PostgreSQL</li>
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span>Git & GitHub</li>
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span>VS Code & DevTools</li>
+                        </ul>
+                    </div>
+
+                    <!-- Other -->
+                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)]">
+                        <div class="grain absolute inset-0 pointer-events-none"></div>
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-cyan-500/30">
+                            <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-white chillax text-xl font-semibold mb-1">Other</h3>
+                        <h4 class="text-cyan-400 outfit-font text-sm font-medium mb-4">Technologies</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span>TypeScript (learning)</li>
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span>WebSockets</li>
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span>REST API Design</li>
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span>Agile / Scrum</li>
+                            <li class="flex items-center gap-3 text-slate-300 outfit-font text-sm"><span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span>Problem Solving</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="project" class="w-full py-20 px-4 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-5xl chillax bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent font-bold mb-4">Featured Projects</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    
+                    <!-- Project 1 -->
+                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-emerald-500/50 transition-all duration-500 hover:-translate-y-2">
+                        <div class="h-1 w-full bg-gradient-to-r from-emerald-500 to-emerald-400"></div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30">
+                                    <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-white chillax text-lg font-semibold">Lucidar Community</h3>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-emerald-400 outfit-font text-xs">Node.js</span>
+                                <span class="text-slate-500">•</span>
+                                <span class="text-emerald-400 outfit-font text-xs">React</span>
+                                <span class="text-slate-500">•</span>
+                                <span class="text-emerald-400 outfit-font text-xs">PostgreSQL</span>
+                            </div>
+                            <p class="text-slate-300 outfit-font text-sm leading-relaxed mb-6">
+                                A secure trading and exchange platform connecting gamers, creators, and tech freelancers globally.
+                            </p>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-3 text-slate-400 outfit-font text-sm">
+                                    <svg class="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    Real-time messaging system
+                                </li>
+                                <li class="flex items-start gap-3 text-slate-400 outfit-font text-sm">
+                                    <svg class="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    Secure escrow payment system
+                                </li>
+                            </ul>
+                            <div class="mt-6 pt-6 border-t border-slate-700/50">
+                                <span class="text-emerald-400/60 outfit-font text-xs">In Production</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-blue-500/50 transition-all duration-500 hover:-translate-y-2">
+                        <div class="h-1 w-full bg-gradient-to-r from-blue-500 to-blue-400"></div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
+                                    <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-white chillax text-lg font-semibold">NestCSS</h3>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-blue-400 outfit-font text-xs">CSS</span>
+                                <span class="text-slate-500">•</span>
+                                <span class="text-blue-400 outfit-font text-xs">JavaScript</span>
+                            </div>
+                            <p class="text-slate-300 outfit-font text-sm leading-relaxed mb-6">
+                                A framework similar to Tailwind CSS and Bootstrap combined - utility classes and predefined UI components.
+                            </p>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-3 text-slate-400 outfit-font text-sm">
+                                    <svg class="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    Faster Design workflow
+                                </li>
+                                <li class="flex items-start gap-3 text-slate-400 outfit-font text-sm">
+                                    <svg class="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    Easy to maintain
+                                </li>
+                            </ul>
+                            <div class="mt-6 pt-6 border-t border-slate-700/50">
+                                <span class="text-blue-400/60 outfit-font text-xs">Unreleased</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-purple-500/50 transition-all duration-500 hover:-translate-y-2">
+                        <div class="h-1 w-full bg-gradient-to-r from-purple-500 to-purple-400"></div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center border border-purple-500/30">
+                                    <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-white chillax text-lg font-semibold">Task Master Pro</h3>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-purple-400 outfit-font text-xs">React</span>
+                                <span class="text-slate-500">•</span>
+                                <span class="text-purple-400 outfit-font text-xs">Node.js</span>
+                                <span class="text-slate-500">•</span>
+                                <span class="text-purple-400 outfit-font text-xs">Socket.io</span>
+                            </div>
+                            <p class="text-slate-300 outfit-font text-sm leading-relaxed mb-6">
+                                Real-time collaborative task management with drag-and-drop interface and team workspaces.
+                            </p>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-3 text-slate-400 outfit-font text-sm">
+                                    <svg class="w-4 h-4 text-purple-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    Drag-and-drop Kanban board
+                                </li>
+                                <li class="flex items-start gap-3 text-slate-400 outfit-font text-sm">
+                                    <svg class="w-4 h-4 text-purple-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    Real-time collaboration
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="w-full py-20 px-4 relative">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-5xl chillax text-white font-bold mb-4">Get In Touch</h2>
+                    <div class="w-20 h-1 bg-gradient-to-r from-emerald-500 to-cyan-500 mx-auto rounded-full mb-6"></div>
+                    <p class="text-slate-400 outfit-font text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+                        I'm always open to discussing new projects, opportunities, or just having a chat about technology.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                    
+                    <!-- Email -->
+                    <a href="mailto:aquadev010@gmail.com" class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-slate-700/50 hover:border-emerald-500/50 transition-all duration-500 hover:-translate-y-2 text-center">
+                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-500 border border-emerald-500/30">
+                            <svg class="w-6 h-6 md:w-7 md:h-7 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-white chillax text-base md:text-lg font-semibold mb-1">Email</h3>
+                        <p class="text-emerald-400 outfit-font text-xs md:text-sm break-all">aquadev010@gmail.com</p>
+                    </a>
+
+                    <!-- GitHub -->
+                    <a href="https://github.com/Aquadev-stack" target="_blank" class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-slate-700/50 hover:border-slate-400/50 transition-all duration-500 hover:-translate-y-2 text-center">
+                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-slate-500/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-500 border border-slate-500/30">
+                            <svg class="w-6 h-6 md:w-7 md:h-7 text-slate-300" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-white chillax text-base md:text-lg font-semibold mb-1">GitHub</h3>
+                        <p class="text-slate-400 outfit-font text-xs md:text-sm">@Aquadev-stack</p>
+                    </a>
+
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/omolona-inioluwa-094307194" target="_blank" class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-slate-700/50 hover:border-blue-500/50 transition-all duration-500 hover:-translate-y-2 text-center">
+                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-500 border border-blue-500/30">
+                            <svg class="w-6 h-6 md:w-7 md:h-7 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-white chillax text-base md:text-lg font-semibold mb-1">LinkedIn</h3>
+                        <p class="text-blue-400 outfit-font text-xs md:text-sm">Samuel Omolona</p>
+                    </a>
+
+                    <!-- X (Twitter) -->
+                    <a href="https://x.com/explorewithaqua" target="_blank" class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-slate-700/50 hover:border-slate-300/50 transition-all duration-500 hover:-translate-y-2 text-center">
+                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-slate-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-500 border border-slate-600/30">
+                            <svg class="w-6 h-6 md:w-7 md:h-7 text-slate-300" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-white chillax text-base md:text-lg font-semibold mb-1">X</h3>
+                        <p class="text-slate-400 outfit-font text-xs md:text-sm">@explorewithaqua</p>
+                    </a>
+
+
+                    <!-- CV Download -->
+                    <a href="./src/cv/Omolona_Inioluwa_Samuel_Aquadev_Resume.pdf" download class="group relative bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 backdrop-blur-sm rounded-2xl p-8 border border-emerald-500/50 hover:border-emerald-400 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(16,185,129,0.3)] text-center sm:col-span-2">
+                        <div class="w-16 h-16 rounded-full bg-emerald-500 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-500 shadow-lg shadow-emerald-500/30">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-white chillax text-lg font-semibold mb-1">Download CV</h3>
+                        <p class="text-emerald-400 outfit-font text-sm">Get my full resume</p>
+                    </a>
+
+                </div>
+
+                <!-- Instagram & Facebook -->
+                <div class="flex flex-wrap justify-center gap-4 mt-8">
+                    <a href="https://www.instagram.com/explorewithaqua" target="_blank" class="group flex items-center gap-3 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-orange-500/10 backdrop-blur-sm rounded-full px-6 py-3 border border-purple-500/30 hover:border-pink-500/50 transition-all duration-500 hover:scale-105">
+                        <svg class="w-5 h-5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"></rect>
+                            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke-width="2"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2"></line>
+                        </svg>
+                        <span class="text-white outfit-font text-sm font-medium">Instagram</span>
+                    </a>
+
+                    <a href="https://www.facebook.com/profile.php?id=61588032296590" target="_blank" class="group flex items-center gap-3 bg-blue-600/10 backdrop-blur-sm rounded-full px-6 py-3 border border-blue-500/30 hover:border-blue-400/50 transition-all duration-500 hover:scale-105">
+                        <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                        <span class="text-white outfit-font text-sm font-medium">Facebook</span>
+                    </a>
+                    
+                </div>
+
+                
+
+            </div>
+            
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="w-full py-8 px-4 bg-slate-950 border-t border-slate-800 relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <span class="text-emerald-400 text-xl font-bold chillax">&lt;/&gt;</span>
+                <span class="text-white chillax font-semibold">AquaDev</span>
+            </div>
+            <p class="text-slate-500 outfit-font text-sm text-center">
+                © <span id="currentYear"></span> Samuel Omolona. All rights reserved.
+            </p>
+            <div class="flex items-center gap-6">
+                <a href="#home" class="text-slate-400 hover:text-emerald-400 outfit-font text-sm transition-colors">Home</a>
+                <a href="#about" class="text-slate-400 hover:text-emerald-400 outfit-font text-sm transition-colors">About</a>
+                <a href="#project" class="text-slate-400 hover:text-emerald-400 outfit-font text-sm transition-colors">Projects</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Generate stars
+        const starsContainer = document.getElementById('starsContainer');
+        const starCount = 100;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2 + 1;
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            const duration = Math.random() * 3 + 2;
+            const opacity = Math.random() * 0.5 + 0.2;
+            const delay = Math.random() * 5;
+            
+            star.style.cssText = `
+                width: ${size}px;
+                height: ${size}px;
+                left: ${x}%;
+                top: ${y}%;
+                --duration: ${duration}s;
+                --opacity: ${opacity};
+                animation-delay: ${delay}s;
+            `;
+            starsContainer.appendChild(star);
+        }
+
+        // Dynamic year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
