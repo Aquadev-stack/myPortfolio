@@ -1,8 +1,6 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inioluwa Samuel | AquaDev - Full Stack Developer</title>
@@ -40,14 +38,16 @@
   <meta name="theme-color" content="#0f172a">
   <meta name="msapplication-TileColor" content="#0f172a">
   
-    <!-- This registers the service worker for offline support -->
-    <script>
-        if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js');
-        }
-    </script>
+  <!-- Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js');
+    }
+  </script>
+  
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link href="https://api.fontshare.com/v2/css?f[]=chillax@600,1&display=swap" rel="stylesheet">
+  
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
@@ -208,7 +208,6 @@
         50% { opacity: 0; }
     }
 
-    /* Line clamp utility */
     .line-clamp-2 {
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -216,7 +215,6 @@
         overflow: hidden;
     }
 
-    /* Hide scrollbar but allow scroll */
     ::-webkit-scrollbar {
         width: 8px;
     }
@@ -230,13 +228,65 @@
     ::-webkit-scrollbar-thumb:hover {
         background: #475569;
     }
+
+    /* MOBILE TOUCH FIXES */
+    body {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Ensure active states work on mobile */
+    @media (hover: none) and (pointer: coarse) {
+        .touch-lift:active {
+            transform: translateY(-8px) !important;
+        }
+        
+        .touch-scale:active {
+            transform: scale(1.1) !important;
+        }
+        
+        .touch-show:active {
+            opacity: 1 !important;
+        }
+        
+        .touch-border-emerald:active {
+            border-color: rgba(16, 185, 129, 0.5) !important;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.15) !important;
+        }
+        
+        .touch-border-blue:active {
+            border-color: rgba(59, 130, 246, 0.5) !important;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.15) !important;
+        }
+        
+        .touch-border-purple:active {
+            border-color: rgba(168, 85, 247, 0.5) !important;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.15) !important;
+        }
+        
+        .touch-border-cyan:active {
+            border-color: rgba(6, 182, 212, 0.5) !important;
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.15) !important;
+        }
+        
+        .touch-bg-emerald:active {
+            background-color: rgba(16, 185, 129, 0.3) !important;
+        }
+        
+        .touch-bg-blue:active {
+            background-color: rgba(59, 130, 246, 0.3) !important;
+        }
+        
+        .touch-bg-slate:active {
+            background-color: rgba(148, 163, 184, 0.3) !important;
+        }
+    }
   </style>
 </head>
 <body class="bg-slate-900 min-h-full flex flex-col relative overflow-x-hidden">
     
     <!-- STARRY BACKGROUND -->
     <div class="stars-container" id="starsContainer">
-        <!-- Floating tech icons -->
         <div class="floating-icon hidden md:block" style="--orbit-duration: 20s; --orbit-radius: 200px; top: 50%; left: 50%;">
             <div class="floating-icon-inner text-orange-500">⚡</div>
         </div>
@@ -247,13 +297,11 @@
             <div class="floating-icon-inner text-yellow-400">&lt;/&gt;</div>
         </div>
         
-        <!-- Code doodles - hidden on small mobile -->
         <div class="doodle code-bracket hidden sm:block" style="top: 15%; left: 10%; --drift-duration: 15s;">{</div>
         <div class="doodle code-bracket hidden sm:block" style="top: 20%; right: 15%; --drift-duration: 18s; animation-delay: -3s;">}</div>
         <div class="doodle code-bracket hidden sm:block" style="top: 60%; left: 5%; --drift-duration: 20s; animation-delay: -7s;">[</div>
         <div class="doodle code-bracket hidden sm:block" style="top: 70%; right: 8%; --drift-duration: 16s; animation-delay: -12s;">]</div>
         
-        <!-- Terminal cursors -->
         <div class="terminal-cursor hidden md:block" style="top: 25%; left: 15%;"></div>
         <div class="terminal-cursor hidden md:block" style="top: 75%; right: 20%; animation-delay: -0.5s;"></div>
     </div>
@@ -262,60 +310,55 @@
     <header class="flex justify-center items-center w-[90%] md:w-[60%] lg:w-[40%] h-[50px] mx-auto fixed top-0 left-0 right-0 overflow-hidden rounded-full bg-gradient-to-r from-white/[0.4] to-white/[0.1] backdrop-blur-md p-2.5 mt-5 border border-white/[0.6] z-50">
         <div class="grain absolute inset-0 pointer-events-none"></div>
         <ul class="flex gap-3 md:gap-6 overflow-x-auto no-scrollbar">
-            <li><a class="outfit-font text-white hover:text-emerald-400 duration-300 text-[13px] md:text-[16px] whitespace-nowrap" href="#home">Home</a></li>
-            <li><a class="outfit-font text-white hover:text-emerald-400 duration-300 text-[13px] md:text-[16px] whitespace-nowrap" href="#about">About</a></li>
-            <li><a class="outfit-font text-white hover:text-emerald-400 duration-300 text-[13px] md:text-[16px] whitespace-nowrap" href="#skill">Skills</a></li>
-            <li><a class="outfit-font text-white hover:text-emerald-400 duration-300 text-[13px] md:text-[16px] whitespace-nowrap" href="#project">Projects</a></li>
-            <li><a class="outfit-font text-white hover:text-emerald-400 duration-300 text-[13px] md:text-[16px] whitespace-nowrap" href="#contact">Contact</a></li>
+            <li><a class="outfit-font text-white hover:text-emerald-400 active:text-emerald-400 duration-300 text-[13px] md:text-[16px] whitespace-nowrap" href="#home">Home</a></li>
+            <li><a class="outfit-font text-white hover:text-emerald-400 active:text-emerald-400 duration-300 text-[13px] md:text-[16px] whitespace-nowrap" href="#about">About</a></li>
+            <li><a class="outfit-font text-white hover:text-emerald-400 active:text-emerald-400 duration-300 text-[13px] md:text-[16px] whitespace-nowrap" href="#skill">Skills</a></li>
+            <li><a class="outfit-font text-white hover:text-emerald-400 active:text-emerald-400 duration-300 text-[13px] md:text-[16px] whitespace-nowrap" href="#project">Projects</a></li>
+            <li><a class="outfit-font text-white hover:text-emerald-400 active:text-emerald-400 duration-300 text-[13px] md:text-[16px] whitespace-nowrap" href="#contact">Contact</a></li>
         </ul>
     </header>
 
     <main class="pt-20 md:pt-28 flex flex-col justify-center items-center relative z-10 w-full">
         
         <!-- HERO SECTION -->
-<section id="home" class="relative w-full flex justify-center items-center py-10 md:py-20 overflow-hidden">
-    <!-- Outer Circle -->
-    <div class="relative overflow-hidden bg-gradient-to-b from-emerald-500/[0.2] to-slate-950/[0.05] min-w-[1000px] min-h-[1000px] md:min-w-[1300px] md:min-h-[1300px] rounded-full border border-emerald-400/[0.5] flex justify-center items-center flex-col">
-        <div class="grain absolute inset-0 pointer-events-none"></div>
-        
-        <!-- Floating icons around hero -->
-        <div class="absolute inset-0 pointer-events-none hidden lg:block">
-            <div class="floating-icon" style="--orbit-duration: 15s; --orbit-radius: 550px; top: 50%; left: 50%;">
-                <div class="floating-icon-inner text-4xl">📱</div>
-            </div>
-            <div class="floating-icon" style="--orbit-duration: 18s; --orbit-radius: 600px; top: 50%; left: 50%; animation-delay: -9s;">
-                <div class="floating-icon-inner text-4xl">💻</div>
-            </div>
-            <div class="floating-icon" style="--orbit-duration: 20s; --orbit-radius: 650px; top: 50%; left: 50%; animation-delay: -5s;">
-                <div class="floating-icon-inner text-4xl">⚛️</div>
-            </div>
-        </div>
-
-        <!-- Big Circle (Middle Layer) -->
-        <div class="relative overflow-hidden bg-gradient-to-b from-emerald-500/[0.3] to-slate-950/[0.1] min-w-[800px] min-h-[800px] md:min-w-[1000px] md:min-h-[1000px] rounded-full border border-emerald-400/[0.7] flex justify-center items-center flex-col">
-            <div class="grain absolute inset-0 pointer-events-none"></div>
-            
-            <!-- Inner circle background -->
-            <div class="relative flex justify-center items-center overflow-hidden bg-gradient-to-b from-emerald-500/[0.3] to-slate-950/[0.1] min-w-[650px] min-h-[650px] md:min-w-[800px] md:min-h-[800px] rounded-full border border-emerald-500/[0.7]">
+        <section id="home" class="relative w-full flex justify-center items-center py-10 md:py-20 overflow-hidden">
+            <div class="relative overflow-hidden bg-gradient-to-b from-emerald-500/[0.2] to-slate-950/[0.05] min-w-[1000px] min-h-[1000px] md:min-w-[1300px] md:min-h-[1300px] rounded-full border border-emerald-400/[0.5] flex justify-center items-center flex-col">
                 <div class="grain absolute inset-0 pointer-events-none"></div>
+                
+                <div class="absolute inset-0 pointer-events-none hidden lg:block">
+                    <div class="floating-icon" style="--orbit-duration: 15s; --orbit-radius: 550px; top: 50%; left: 50%;">
+                        <div class="floating-icon-inner text-4xl">📱</div>
+                    </div>
+                    <div class="floating-icon" style="--orbit-duration: 18s; --orbit-radius: 600px; top: 50%; left: 50%; animation-delay: -9s;">
+                        <div class="floating-icon-inner text-4xl">💻</div>
+                    </div>
+                    <div class="floating-icon" style="--orbit-duration: 20s; --orbit-radius: 650px; top: 50%; left: 50%; animation-delay: -5s;">
+                        <div class="floating-icon-inner text-4xl">⚛️</div>
+                    </div>
+                </div>
 
-                <div class="text-white text-center w-[350px] md:w-[500px]">
-                    <h1 class="text-4xl md:text-6xl chillax leading-[1.5]">
-                        HI, I'M SAMUEL (AQUADEV)
-                    </h1>
-                    <p class="py-5 outfit-font text-[16px]">
-                        A passionate Fullstack Developer and Tech Enthusiast focused on crafting accessible, high-performance, and user-centric interfaces. 
-                    </p>
+                <div class="relative overflow-hidden bg-gradient-to-b from-emerald-500/[0.3] to-slate-950/[0.1] min-w-[800px] min-h-[800px] md:min-w-[1000px] md:min-h-[1000px] rounded-full border border-emerald-400/[0.7] flex justify-center items-center flex-col">
+                    <div class="grain absolute inset-0 pointer-events-none"></div>
+                    
+                    <div class="relative flex justify-center items-center overflow-hidden bg-gradient-to-b from-emerald-500/[0.3] to-slate-950/[0.1] min-w-[650px] min-h-[650px] md:min-w-[800px] md:min-h-[800px] rounded-full border border-emerald-500/[0.7]">
+                        <div class="grain absolute inset-0 pointer-events-none"></div>
+
+                        <div class="text-white text-center w-[350px] md:w-[500px]">
+                            <h1 class="text-4xl md:text-6xl chillax leading-[1.5]">
+                                HI, I'M SAMUEL (AQUADEV)
+                            </h1>
+                            <p class="py-5 outfit-font text-[16px]">
+                                A passionate Fullstack Developer and Tech Enthusiast focused on crafting accessible, high-performance, and user-centric interfaces. 
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-image-container absolute w-[150px] h-[150px] border-4 border-emerald-600 rounded-full z-30 bg-transparent" style="top: 5%;">
+                        <img src="./src/img/image.png" alt="my image" class="w-full h-full rounded-full object-cover">
+                    </div>
                 </div>
             </div>
-            
-            <!-- HERO IMAGE - positioned absolutely relative to middle layer -->
-            <div class="hero-image-container absolute w-[150px] h-[150px] border-4 border-emerald-600 rounded-full z-30 bg-transparent" style="top: 5%;">
-                <img src="./src/img/image.png" alt="my image" class="w-full h-full rounded-full object-cover">
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
 
         <!-- ABOUT SECTION -->
         <section id="about" class="w-full px-4 py-20 bg-gradient-to-t from-emerald-900/50 to-transparent relative">
@@ -327,7 +370,6 @@
                     </h1>
                 </div>
                 
-                <!-- Code Block -->
                 <div class="code-container font-mono text-xs sm:text-sm md:text-base p-4 sm:p-6 rounded-2xl bg-slate-950/90 border border-emerald-500/30 backdrop-blur-md max-w-lg mx-auto shadow-[0_0_40px_rgba(16,185,129,0.1)] relative overflow-hidden mb-12">
                     <div class="absolute -top-20 -right-20 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl"></div>
                     
@@ -365,7 +407,7 @@
                 <!-- About Cards -->
                 <div class="flex flex-col lg:flex-row justify-center items-stretch gap-6">
                     <!-- Card 1 -->
-                    <div class="relative w-full lg:max-w-[420px] bg-gradient-to-r from-slate-600/[0.2] hover:from-slate-500/[0.3] to-white/[0.1] hover:-translate-y-2 rounded-[32px] overflow-hidden border border-slate-700/50 transition-all duration-500">
+                    <div class="relative w-full lg:max-w-[420px] bg-gradient-to-r from-slate-600/[0.2] hover:from-slate-500/[0.3] active:from-slate-500/[0.3] to-white/[0.1] hover:-translate-y-2 active:-translate-y-2 rounded-[32px] overflow-hidden border border-slate-700/50 transition-all duration-500 touch-lift">
                         <div class="grain absolute inset-0 pointer-events-none"></div>
                         <div class="relative z-10 p-6 md:p-8 h-full flex flex-col">
                             <div class="mb-6">
@@ -380,7 +422,7 @@
                     <!-- Right Column -->
                     <div class="flex flex-col gap-6 w-full lg:max-w-[420px]">
                         <!-- Card 2 -->
-                        <div class="relative w-full bg-gradient-to-r from-slate-600/[0.2] hover:from-slate-500/[0.3] to-white/[0.1] hover:-translate-y-2 rounded-[32px] overflow-hidden border border-slate-700/50 transition-all duration-500">
+                        <div class="relative w-full bg-gradient-to-r from-slate-600/[0.2] hover:from-slate-500/[0.3] active:from-slate-500/[0.3] to-white/[0.1] hover:-translate-y-2 active:-translate-y-2 rounded-[32px] overflow-hidden border border-slate-700/50 transition-all duration-500 touch-lift">
                             <div class="grain absolute inset-0 pointer-events-none"></div>
                             <div class="relative z-10 p-6 md:p-8">
                                 <div class="mb-6">
@@ -393,7 +435,7 @@
                         </div>
 
                         <!-- Card 3 -->
-                        <div class="relative w-full bg-gradient-to-r from-slate-600/[0.2] hover:from-slate-500/[0.3] to-white/[0.1] hover:-translate-y-2 rounded-[32px] overflow-hidden border border-slate-700/50 transition-all duration-500">
+                        <div class="relative w-full bg-gradient-to-r from-slate-600/[0.2] hover:from-slate-500/[0.3] active:from-slate-500/[0.3] to-white/[0.1] hover:-translate-y-2 active:-translate-y-2 rounded-[32px] overflow-hidden border border-slate-700/50 transition-all duration-500 touch-lift">
                             <div class="grain absolute inset-0 pointer-events-none"></div>
                             <div class="relative z-10 p-6 md:p-8">
                                 <div class="mb-6">
@@ -413,7 +455,6 @@
                         <div class="grain absolute inset-0 pointer-events-none"></div>
                         <div class="absolute -top-20 -right-20 w-60 h-60 bg-emerald-500/10 rounded-full blur-3xl"></div>
                         
-                        <!-- Header -->
                         <div class="relative z-10 mb-10 text-center md:text-left">
                             <div class="flex flex-col md:flex-row items-center gap-3 mb-3">
                                 <svg class="w-6 h-6 text-emerald-400" fill="currentColor" viewBox="0 0 24 24">
@@ -431,9 +472,9 @@
                             
                             <!-- Book 1 -->
                             <div class="group relative">
-                                <div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl transform transition-all duration-500 group-hover:-translate-y-3 group-hover:scale-105">
+                                <div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl transform transition-all duration-500 group-hover:-translate-y-3 group-active:-translate-y-3 group-hover:scale-105 group-active:scale-105 touch-lift">
                                     <img src="./src/img/Atomic_habit.jpg" alt="Atomic Habits" class="w-full h-full object-cover">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300 flex items-end p-4 touch-show">
                                         <p class="text-white text-sm outfit-font">James Clear</p>
                                     </div>
                                 </div>
@@ -445,9 +486,9 @@
 
                             <!-- Book 2 -->
                             <div class="group relative">
-                                <div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl transform transition-all duration-500 group-hover:-translate-y-3 group-hover:scale-105">
+                                <div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl transform transition-all duration-500 group-hover:-translate-y-3 group-active:-translate-y-3 group-hover:scale-105 group-active:scale-105 touch-lift">
                                     <img src="./src/img/48_laws_of_power.jpg" alt="48 Laws of Power" class="w-full h-full object-cover">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300 flex items-end p-4 touch-show">
                                         <p class="text-white text-sm outfit-font">Robert Greene</p>
                                     </div>
                                 </div>
@@ -459,9 +500,9 @@
 
                             <!-- Book 3 -->
                             <div class="group relative">
-                                <div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl transform transition-all duration-500 group-hover:-translate-y-3 group-hover:scale-105">
+                                <div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl transform transition-all duration-500 group-hover:-translate-y-3 group-active:-translate-y-3 group-hover:scale-105 group-active:scale-105 touch-lift">
                                     <img src="./src/img/Art_of_war.jpg" alt="Art of War" class="w-full h-full object-cover">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300 flex items-end p-4 touch-show">
                                         <p class="text-white text-sm outfit-font">Sun Tzu</p>
                                     </div>
                                 </div>
@@ -473,9 +514,9 @@
 
                             <!-- Book 4 -->
                             <div class="group relative">
-                                <div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl transform transition-all duration-500 group-hover:-translate-y-3 group-hover:scale-105">
+                                <div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-2xl transform transition-all duration-500 group-hover:-translate-y-3 group-active:-translate-y-3 group-hover:scale-105 group-active:scale-105 touch-lift">
                                     <img src="./src/img/A_place_called_tomorrow.png" alt="Place Called Tomorrow" class="w-full h-full object-cover">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300 flex items-end p-4 touch-show">
                                         <p class="text-white text-sm outfit-font">Habu Dawaki</p>
                                     </div>
                                 </div>
@@ -502,9 +543,9 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     
                     <!-- Frontend -->
-                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 hover:border-emerald-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)]">
+                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 hover:border-emerald-500/50 active:border-emerald-500/50 transition-all duration-500 hover:-translate-y-2 active:-translate-y-2 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)] active:shadow-[0_0_30px_rgba(16,185,129,0.15)] touch-lift touch-border-emerald">
                         <div class="grain absolute inset-0 pointer-events-none"></div>
-                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-emerald-500/30">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 flex items-center justify-center mb-6 group-hover:scale-110 group-active:scale-110 transition-transform duration-500 border border-emerald-500/30 touch-scale">
                             <svg class="w-7 h-7 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                             </svg>
@@ -521,9 +562,9 @@
                     </div>
 
                     <!-- Backend -->
-                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 hover:border-blue-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)]">
+                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 hover:border-blue-500/50 active:border-blue-500/50 transition-all duration-500 hover:-translate-y-2 active:-translate-y-2 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] active:shadow-[0_0_30px_rgba(59,130,246,0.15)] touch-lift touch-border-blue">
                         <div class="grain absolute inset-0 pointer-events-none"></div>
-                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-blue-500/30">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 flex items-center justify-center mb-6 group-hover:scale-110 group-active:scale-110 transition-transform duration-500 border border-blue-500/30 touch-scale">
                             <svg class="w-7 h-7 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
                             </svg>
@@ -540,9 +581,9 @@
                     </div>
 
                     <!-- Database -->
-                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 hover:border-purple-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(168,85,247,0.15)]">
+                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 hover:border-purple-500/50 active:border-purple-500/50 transition-all duration-500 hover:-translate-y-2 active:-translate-y-2 hover:shadow-[0_0_30px_rgba(168,85,247,0.15)] active:shadow-[0_0_30px_rgba(168,85,247,0.15)] touch-lift touch-border-purple">
                         <div class="grain absolute inset-0 pointer-events-none"></div>
-                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-purple-500/30">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 flex items-center justify-center mb-6 group-hover:scale-110 group-active:scale-110 transition-transform duration-500 border border-purple-500/30 touch-scale">
                             <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
                             </svg>
@@ -558,9 +599,9 @@
                     </div>
 
                     <!-- Other -->
-                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)]">
+                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 hover:border-cyan-500/50 active:border-cyan-500/50 transition-all duration-500 hover:-translate-y-2 active:-translate-y-2 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] active:shadow-[0_0_30px_rgba(6,182,212,0.15)] touch-lift touch-border-cyan">
                         <div class="grain absolute inset-0 pointer-events-none"></div>
-                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-cyan-500/30">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 flex items-center justify-center mb-6 group-hover:scale-110 group-active:scale-110 transition-transform duration-500 border border-cyan-500/30 touch-scale">
                             <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path>
                             </svg>
@@ -590,7 +631,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     
                     <!-- Project 1 -->
-                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-emerald-500/50 transition-all duration-500 hover:-translate-y-2">
+                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-emerald-500/50 active:border-emerald-500/50 transition-all duration-500 hover:-translate-y-2 active:-translate-y-2 touch-lift touch-border-emerald">
                         <div class="h-1 w-full bg-gradient-to-r from-emerald-500 to-emerald-400"></div>
                         <div class="p-6">
                             <div class="flex items-center gap-3 mb-4">
@@ -632,7 +673,7 @@
                     </div>
 
                     <!-- Project 2 -->
-                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-blue-500/50 transition-all duration-500 hover:-translate-y-2">
+                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-blue-500/50 active:border-blue-500/50 transition-all duration-500 hover:-translate-y-2 active:-translate-y-2 touch-lift touch-border-blue">
                         <div class="h-1 w-full bg-gradient-to-r from-blue-500 to-blue-400"></div>
                         <div class="p-6">
                             <div class="flex items-center gap-3 mb-4">
@@ -672,7 +713,7 @@
                     </div>
 
                     <!-- Project 3 -->
-                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-purple-500/50 transition-all duration-500 hover:-translate-y-2">
+                    <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-purple-500/50 active:border-purple-500/50 transition-all duration-500 hover:-translate-y-2 active:-translate-y-2 touch-lift touch-border-purple">
                         <div class="h-1 w-full bg-gradient-to-r from-purple-500 to-purple-400"></div>
                         <div class="p-6">
                             <div class="flex items-center gap-3 mb-4">
@@ -728,8 +769,8 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                     
                     <!-- Email -->
-                    <a href="mailto:aquadev010@gmail.com" class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-slate-700/50 hover:border-emerald-500/50 transition-all duration-500 hover:-translate-y-2 text-center">
-                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-500 border border-emerald-500/30">
+                    <a href="mailto:aquadev010@gmail.com" class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-slate-700/50 hover:border-emerald-500/50 active:border-emerald-500/50 transition-all duration-500 hover:-translate-y-2 active:-translate-y-2 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)] active:shadow-[0_0_30px_rgba(16,185,129,0.15)] text-center touch-lift touch-border-emerald">
+                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-active:scale-110 transition-transform duration-500 border border-emerald-500/30 touch-scale touch-bg-emerald">
                             <svg class="w-6 h-6 md:w-7 md:h-7 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                             </svg>
@@ -739,8 +780,8 @@
                     </a>
 
                     <!-- GitHub -->
-                    <a href="https://github.com/Aquadev-stack" target="_blank" class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-slate-700/50 hover:border-slate-400/50 transition-all duration-500 hover:-translate-y-2 text-center">
-                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-slate-500/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-500 border border-slate-500/30">
+                    <a href="https://github.com/Aquadev-stack" target="_blank" class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-slate-700/50 hover:border-slate-400/50 active:border-slate-400/50 transition-all duration-500 hover:-translate-y-2 active:-translate-y-2 hover:shadow-[0_0_30px_rgba(148,163,184,0.15)] active:shadow-[0_0_30px_rgba(148,163,184,0.15)] text-center touch-lift">
+                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-slate-500/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-active:scale-110 transition-transform duration-500 border border-slate-500/30 touch-scale touch-bg-slate">
                             <svg class="w-6 h-6 md:w-7 md:h-7 text-slate-300" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                             </svg>
@@ -750,8 +791,8 @@
                     </a>
 
                     <!-- LinkedIn -->
-                    <a href="https://www.linkedin.com/in/omolona-inioluwa-094307194" target="_blank" class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-slate-700/50 hover:border-blue-500/50 transition-all duration-500 hover:-translate-y-2 text-center">
-                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-500 border border-blue-500/30">
+                    <a href="https://www.linkedin.com/in/omolona-inioluwa-094307194" target="_blank" class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-slate-700/50 hover:border-blue-500/50 active:border-blue-500/50 transition-all duration-500 hover:-translate-y-2 active:-translate-y-2 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] active:shadow-[0_0_30px_rgba(59,130,246,0.15)] text-center touch-lift touch-border-blue">
+                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-active:scale-110 transition-transform duration-500 border border-blue-500/30 touch-scale touch-bg-blue">
                             <svg class="w-6 h-6 md:w-7 md:h-7 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                             </svg>
@@ -761,8 +802,8 @@
                     </a>
 
                     <!-- X (Twitter) -->
-                    <a href="https://x.com/explorewithaqua" target="_blank" class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-slate-700/50 hover:border-slate-300/50 transition-all duration-500 hover:-translate-y-2 text-center">
-                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-slate-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-500 border border-slate-600/30">
+                    <a href="https://x.com/explorewithaqua" target="_blank" class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-slate-700/50 hover:border-slate-300/50 active:border-slate-300/50 transition-all duration-500 hover:-translate-y-2 active:-translate-y-2 hover:shadow-[0_0_30px_rgba(203,213,225,0.15)] active:shadow-[0_0_30px_rgba(203,213,225,0.15)] text-center touch-lift">
+                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-slate-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-active:scale-110 transition-transform duration-500 border border-slate-600/30 touch-scale touch-bg-slate">
                             <svg class="w-6 h-6 md:w-7 md:h-7 text-slate-300" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                             </svg>
@@ -771,10 +812,9 @@
                         <p class="text-slate-400 outfit-font text-xs md:text-sm">@explorewithaqua</p>
                     </a>
 
-
                     <!-- CV Download -->
-                    <a href="./src/cv/Omolona_Inioluwa_Samuel_Aquadev_Resume.pdf" download class="group relative bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 backdrop-blur-sm rounded-2xl p-8 border border-emerald-500/50 hover:border-emerald-400 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(16,185,129,0.3)] text-center sm:col-span-2">
-                        <div class="w-16 h-16 rounded-full bg-emerald-500 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-500 shadow-lg shadow-emerald-500/30">
+                    <a href="./src/cv/Omolona_Inioluwa_Samuel_Aquadev_Resume.pdf" download class="group relative bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 backdrop-blur-sm rounded-2xl p-8 border border-emerald-500/50 hover:border-emerald-400 active:border-emerald-400 transition-all duration-500 hover:-translate-y-2 active:-translate-y-2 hover:shadow-[0_0_30px_rgba(16,185,129,0.3)] active:shadow-[0_0_30px_rgba(16,185,129,0.3)] text-center sm:col-span-2 touch-lift touch-border-emerald">
+                        <div class="w-16 h-16 rounded-full bg-emerald-500 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-active:scale-110 transition-transform duration-500 shadow-lg shadow-emerald-500/30 touch-scale">
                             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                             </svg>
@@ -787,7 +827,7 @@
 
                 <!-- Instagram & Facebook -->
                 <div class="flex flex-wrap justify-center gap-4 mt-8">
-                    <a href="https://www.instagram.com/explorewithaqua" target="_blank" class="group flex items-center gap-3 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-orange-500/10 backdrop-blur-sm rounded-full px-6 py-3 border border-purple-500/30 hover:border-pink-500/50 transition-all duration-500 hover:scale-105">
+                    <a href="https://www.instagram.com/explorewithaqua" target="_blank" class="group flex items-center gap-3 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-orange-500/10 backdrop-blur-sm rounded-full px-6 py-3 border border-purple-500/30 hover:border-pink-500/50 active:border-pink-500/50 transition-all duration-500 hover:scale-105 active:scale-105 touch-scale">
                         <svg class="w-5 h-5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"></rect>
                             <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke-width="2"></path>
@@ -796,19 +836,15 @@
                         <span class="text-white outfit-font text-sm font-medium">Instagram</span>
                     </a>
 
-                    <a href="https://www.facebook.com/profile.php?id=61588032296590" target="_blank" class="group flex items-center gap-3 bg-blue-600/10 backdrop-blur-sm rounded-full px-6 py-3 border border-blue-500/30 hover:border-blue-400/50 transition-all duration-500 hover:scale-105">
+                    <a href="https://www.facebook.com/profile.php?id=61588032296590" target="_blank" class="group flex items-center gap-3 bg-blue-600/10 backdrop-blur-sm rounded-full px-6 py-3 border border-blue-500/30 hover:border-blue-400/50 active:border-blue-400/50 transition-all duration-500 hover:scale-105 active:scale-105 touch-scale">
                         <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                         </svg>
                         <span class="text-white outfit-font text-sm font-medium">Facebook</span>
                     </a>
-                    
                 </div>
 
-                
-
             </div>
-            
         </section>
 
     </main>
@@ -824,9 +860,9 @@
                 © <span id="currentYear"></span> Samuel Omolona. All rights reserved.
             </p>
             <div class="flex items-center gap-6">
-                <a href="#home" class="text-slate-400 hover:text-emerald-400 outfit-font text-sm transition-colors">Home</a>
-                <a href="#about" class="text-slate-400 hover:text-emerald-400 outfit-font text-sm transition-colors">About</a>
-                <a href="#project" class="text-slate-400 hover:text-emerald-400 outfit-font text-sm transition-colors">Projects</a>
+                <a href="#home" class="text-slate-400 hover:text-emerald-400 active:text-emerald-400 outfit-font text-sm transition-colors">Home</a>
+                <a href="#about" class="text-slate-400 hover:text-emerald-400 active:text-emerald-400 outfit-font text-sm transition-colors">About</a>
+                <a href="#project" class="text-slate-400 hover:text-emerald-400 active:text-emerald-400 outfit-font text-sm transition-colors">Projects</a>
             </div>
         </div>
     </footer>
