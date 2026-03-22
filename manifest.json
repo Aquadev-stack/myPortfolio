@@ -1,0 +1,14 @@
+{
+    "name": "Aquadev portfolio",
+    "short_name": "Aquadev",
+    "short_url": "/",
+    "display": "standalone",
+    "background": "rgba(16, 185, 129)",
+    "icons": [
+            {
+                "src": "./src/img/image.png",
+                "sizes": "192x192",
+                "type": "image/png"
+            }
+        ]
+}
